@@ -241,7 +241,7 @@ git --version
 From the course repo:
 
 ```bash
-git clone https://github.com/<your-org>/techudaan-kubernetes.git
+git clone https://github.com/sandeeptecharch-dev/kubernetes
 cd techudaan-kubernetes
 bash module-00-setup/check-setup.sh
 ```
