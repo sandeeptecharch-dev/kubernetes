@@ -87,6 +87,16 @@ docker exec techudaan-worker systemctl status kubelet --no-pager | head -5
 
 **What this proves:** the kubelet runs as a system service on the node. It has to, because it's the thing that starts Pods.
 
+```bash
+sudo systemctl status kubelet
+sudo systemctl is-active kubelet
+which kubelet
+kind get clusters
+kubectl config current-context
+kubectl get nodes
+docker exec techudaan-worker systemctl status kubelet
+```
+
 ### Step 2: Read its config and logs
 
 ```bash
