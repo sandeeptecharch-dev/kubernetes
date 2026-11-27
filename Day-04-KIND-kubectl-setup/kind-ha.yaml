@@ -1,0 +1,16 @@
+# TechUdaan - Day 4 (optional challenge): a production-like HA cluster.
+# 3 control planes + 2 workers. kind adds a load balancer container
+# in front of the 3 API servers automatically.
+#
+# Needs more RAM: 16 GB recommended.
+#
+# Create:  kind create cluster --name ha --config kind-configs/kind-ha.yaml
+# Delete:  kind delete cluster --name ha
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+  - role: control-plane
+  - role: control-plane
+  - role: worker
+  - role: worker

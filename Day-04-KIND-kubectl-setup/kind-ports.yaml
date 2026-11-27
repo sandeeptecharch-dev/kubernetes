@@ -1,0 +1,17 @@
+# TechUdaan - Day 4: a cluster you can reach from your browser.
+# Maps port 30080 on your laptop to NodePort 30080 inside the cluster,
+# so http://localhost:30080 works without port-forwarding.
+#
+# Create:  kind create cluster --name web --config kind-configs/kind-ports.yaml
+# Then:    kubectl apply -f manifests/
+#          open http://localhost:30080
+# Delete:  kind delete cluster --name web
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      - containerPort: 30080   # NodePort inside the cluster
+        hostPort: 30080        # port on your laptop
+        protocol: TCP
+  - role: worker

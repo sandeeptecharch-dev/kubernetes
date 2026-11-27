@@ -1,0 +1,9 @@
+# TechUdaan - Day 4: the smallest possible cluster (1 node).
+# The single node is both control plane and worker.
+#
+# Create:  kind create cluster --name solo --config kind-configs/kind-1node.yaml
+# Delete:  kind delete cluster --name solo
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane

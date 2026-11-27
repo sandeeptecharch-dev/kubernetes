@@ -1,0 +1,13 @@
+# TechUdaan - Day 4: the course cluster (1 control plane + 2 workers).
+# Used in every module from here on.
+#
+# Create:  kind create cluster --name techudaan --config kind-configs/kind-3node.yaml
+# Delete:  kind delete cluster --name techudaan
+#
+# 8 GB laptop running slow? Delete the last "- role: worker" line (2 nodes).
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+  - role: worker
+  - role: worker

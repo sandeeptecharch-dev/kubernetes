@@ -1,0 +1,43 @@
+# TechUdaan - Day 4: run YOUR image (loaded with "kind load docker-image").
+#
+# Important:
+#   - The tag is "1.0", not "latest". With "latest", Kubernetes always tries
+#     to pull from Docker Hub, and fails because the image only exists locally.
+#   - imagePullPolicy: IfNotPresent tells the kubelet to use the copy
+#     already on the node.
+#
+# Apply:  kubectl apply -f my-app/my-app.yaml
+# Open:   kubectl port-forward service/my-app 8081:80  ->  http://localhost:8081
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: web
+          image: techudaan-hello:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app
+spec:
+  selector:
+    app: my-app
+  ports:
+    - port: 80
+      targetPort: 80
