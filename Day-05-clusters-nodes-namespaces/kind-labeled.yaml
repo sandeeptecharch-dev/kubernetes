@@ -1,0 +1,21 @@
+# TechUdaan - Day 5: a 3-node cluster whose workers come with labels.
+# Labels describe a node ("this node has SSD", "this node is for frontend").
+# The scheduler can use them to decide where Pods run.
+#
+# Create:  kind create cluster --name techudaan --config kind-configs/kind-labeled.yaml
+# Check:   kubectl get nodes --show-labels
+#
+# If your kind version rejects the "labels" field, use kind-3node.yaml from
+# Day 4 instead and add the labels by hand (Lab 2, Step 4).
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+  - role: worker
+    labels:
+      tier: frontend
+      disk: ssd
+  - role: worker
+    labels:
+      tier: backend
+      disk: hdd

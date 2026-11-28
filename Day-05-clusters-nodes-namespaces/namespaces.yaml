@@ -1,0 +1,29 @@
+# TechUdaan - Day 5: three environments inside ONE cluster.
+# A namespace is like a separate folder (or a floor in a building):
+# the same names can exist in each, and each can have its own limits.
+#
+# Apply:  kubectl apply -f manifests/namespaces.yaml
+# Check:  kubectl get namespaces --show-labels
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+  labels:
+    env: dev
+    team: techudaan
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: staging
+  labels:
+    env: staging
+    team: techudaan
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod
+  labels:
+    env: prod
+    team: techudaan

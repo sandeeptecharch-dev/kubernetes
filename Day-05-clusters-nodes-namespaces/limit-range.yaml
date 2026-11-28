@@ -1,0 +1,23 @@
+# TechUdaan - Day 5: default sizes for containers in "dev".
+# A LimitRange fills in requests/limits for any container that
+# doesn't set them, and blocks containers that ask for too much.
+#
+# Apply:  kubectl apply -f manifests/limit-range.yaml
+# Check:  kubectl describe limitrange dev-limits -n dev
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: dev-limits
+  namespace: dev
+spec:
+  limits:
+    - type: Container
+      defaultRequest:        # used when a container sets no requests
+        cpu: 100m
+        memory: 64Mi
+      default:               # used when a container sets no limits
+        cpu: 200m
+        memory: 128Mi
+      max:                   # no single container may ask for more
+        cpu: 500m
+        memory: 512Mi

@@ -1,0 +1,42 @@
+# TechUdaan - Day 5: one app, deployed into ANY namespace.
+# There is no "namespace:" field on purpose. You choose it when applying:
+#
+#   kubectl apply -f manifests/web-app.yaml -n dev
+#   kubectl apply -f manifests/web-app.yaml -n prod
+#
+# Same names ("web") in different namespaces never clash.
+#
+# Note: no "resources:" section on purpose. In Lab 6 you'll see what happens
+# when a namespace has a ResourceQuota and a Pod doesn't say what it needs.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  labels:
+    app: web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  selector:
+    app: web
+  ports:
+    - port: 80
+      targetPort: 80

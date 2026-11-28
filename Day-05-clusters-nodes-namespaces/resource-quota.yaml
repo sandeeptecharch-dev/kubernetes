@@ -1,0 +1,23 @@
+# TechUdaan - Day 5: a budget for the "dev" namespace.
+# A ResourceQuota caps the TOTAL a namespace may use, so one team
+# can't eat the whole cluster.
+#
+# Apply:  kubectl apply -f manifests/resource-quota.yaml
+# Check:  kubectl describe resourcequota dev-quota -n dev
+#
+# Important: once a quota limits cpu/memory, every new Pod in this
+# namespace MUST declare requests and limits, or it is rejected.
+# (limit-range.yaml fixes that by adding defaults.)
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-quota
+  namespace: dev
+spec:
+  hard:
+    pods: "5"                # at most 5 Pods in total
+    requests.cpu: "1"        # all Pods together may request 1 CPU
+    requests.memory: 1Gi
+    limits.cpu: "2"
+    limits.memory: 2Gi
+    services: "5"
